@@ -1,4 +1,5 @@
 from sys import exit
+from re import split
 
 class Obj():
     def __init__(self, source: str) -> None:
@@ -13,11 +14,9 @@ class Obj():
         try:
             with open(source, 'r') as file:
                 return file.readlines()
-        except FileNotFoundError as e:
-            print(e)
+        except FileNotFoundError:
             print("Given obj file doesn't exist")
             exit()
-
 
 class Vertex():
     def __init__(self, vertex: str) -> None:
@@ -48,6 +47,7 @@ class Normal():
 
 
 class Face():
+    seperator = None
     def __init__(self, face: str, vertices: list[Vertex], normals: list[Normal]) -> None:
         self.face: list[str] = face
         self.vertices = vertices
@@ -62,26 +62,54 @@ class Face():
         self._face: list[str] = f.split()
         self._face.pop(0)
 
-    def construct(self):
+    def construct(self) -> str:
         triangle: str = ""
         for data in self.face:
-            vertex, normal = data.split("//")
+            info = split(r"\/\/?", data)
+            vertex, normal, texture = ["" for i in range(3)]
+            match len(info):
+                case 3:
+                    vertex, normal, texture = info
+                case 2:
+                    vertex, normal = info
+                case 1:
+                    vertex = info
             try:
-                vertex = int(vertex) - 1
-                normal = int(normal) - 1
-            except ValueError:
+                if vertex:
+                    vertex = ", ".join(self.vertices[int(vertex) - 1].vertex)
+                if normal:
+                    normal = ", ".join(self.normals[int(normal) - 1].normal)                    
+            except ValueError as e:
+                print(e)
                 print("invalid obj")
-            print(", ".join(self.vertices[int(vertex) - 1].vertex))
+                exit()
+            else:
+                triangle = vertex + ",\n"
         return triangle
+
+
+class Target():
+    def __init__(self, target: str, data: str) -> None:
+        self.target: str = target
+        self.data: str = data
+
+    def write_file(self) -> None:
+        try:
+            with open(self.target, 'w') as file:
+                file.write(self.data)
+        except:
+            print("Unable to write in target file")
+            exit()
 
 
 class VertexData():
     def __init__(self, source, target) -> None:
         self.obj: Obj = Obj(source)
+        self.target: Target = Target(target, '')
         self.vertices: list[Vertex] = []
         self.normals: list[Normal] = []
 
-    def iterate(self):
+    def parse(self) -> None:
         for line in self.obj.obj_data:
             if line[0] == 'v':
                 if line[1] != 'n':
@@ -89,19 +117,8 @@ class VertexData():
                 else:
                     self.normals.append(Normal(line))
             elif line[0] == 'f':
-                Face(line, self.vertices, self.normals).construct()
+                face = Face(line, self.vertices, self.normals).construct()
+                self.target.data += face
 
-
-class Target():
-    def __init__(self, vertexData: VertexData, target: str) -> None:
-        self.vertexData: VertexData = vertexData
-        self.target: str = target
-
-    def write_file(self) -> None:
-        try:
-            with open(self.target, 'w') as file:
-                file.write(self.vertexData.data)
-        except:
-            print("Unable to write in target file")
-            exit()
-
+    def output(self) -> None:
+        self.target.write_file()
