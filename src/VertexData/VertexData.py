@@ -18,6 +18,21 @@ class Obj():
             print("Given obj file doesn't exist")
             exit()
 
+
+class Target():
+    def __init__(self, target: str, data: str) -> None:
+        self.target: str = target
+        self.data: str = data
+
+    def write_file(self) -> None:
+        try:
+            with open(self.target, 'w') as file:
+                file.write(self.data)
+        except:
+            print("Unable to write in target file")
+            exit()
+
+
 class Vertex():
     def __init__(self, vertex: str) -> None:
         self.vertex: list[str] = vertex
@@ -84,22 +99,8 @@ class Face():
                 print("invalid obj")
                 exit()
             else:
-                triangle = vertex + ",\n"
+                triangle += vertex + ",\n"
         return triangle
-
-
-class Target():
-    def __init__(self, target: str, data: str) -> None:
-        self.target: str = target
-        self.data: str = data
-
-    def write_file(self) -> None:
-        try:
-            with open(self.target, 'w') as file:
-                file.write(self.data)
-        except:
-            print("Unable to write in target file")
-            exit()
 
 
 class VertexData():
