@@ -78,12 +78,13 @@ class Normal():
 class Face():
     seperator = None
     def __init__(self, face: str, 
-        vertices: list[Vertex], normals: list[Normal], textures: list[Texture]
+        vertices: list[Vertex], normals: list[Normal], textures: list[Texture], no_normal_data: bool
     ) -> None:
         self.face: list[str] = face
         self.vertices: list[Vertex] = vertices
         self.normals: list[Normal] = normals
         self.textures: list[Texture] = textures
+        self.no_normal_data: bool = no_normal_data
 
     @property
     def face(self) -> list[str]:
@@ -109,11 +110,14 @@ class Face():
             try:
                 if vertex:
                     vertex = ", ".join(self.vertices[int(vertex) - 1].vertex) + ', '
-                if texture:
-                    texture = ", ".join(self.normals[int(texture) - 1].texture) + ', '                
-                if normal:
-                    normal = ", ".join(self.normals[int(normal) - 1].normal) + ','
-            except ValueError as e:
+                if not self.no_normal_data:
+                    if texture:
+                        texture = ", ".join(self.textures[int(texture) - 1].texture) + ', '                
+                    if normal:
+                        normal = ", ".join(self.normals[int(normal) - 1].normal) + ','
+                else:
+                    normal = texture = ''
+            except ValueError:
                 print("Obj file contains strings as indexing vertex info :sob:")
                 exit()
             else:
@@ -128,6 +132,7 @@ class VertexParser():
         self.vertices: list[Vertex] = []
         self.normals: list[Normal] = []
         self.textures: list[Texture] = []
+        self.no_normal_data: bool = no_normal_data
 
     def parse(self) -> None:
         for line in self.obj.obj_data:
@@ -143,7 +148,7 @@ class VertexParser():
                         print("what kind of vertex info do you have??")
                         exit()
             elif line[0] == 'f':
-                face = Face(line, self.vertices, self.normals, self.textures).construct()
+                face = Face(line, self.vertices, self.normals, self.textures, self.no_normal_data).construct()
                 self.target.data += face
 
     def output(self) -> None:

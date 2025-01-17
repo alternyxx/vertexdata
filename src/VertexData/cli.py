@@ -8,24 +8,25 @@ class Args():
                                         description='For feeding data of .obj files to a vertex buffer'
         )
         self.parser.add_argument(
-            'Obj_File', help='The file name of the .obj file'
+            'obj_file', help='the file name of the .obj file'
         )
         self.parser.add_argument(
-            'Target_File', 
-            help='[Optional] Enter the target file name', 
+            'target_file', 
+            help='[optional] enter the target file name', 
             default='',
             nargs='?'
         )
         self.parser.add_argument(
             '-nvn', '--no-vn',
+            help='No normal and texture data in output file',
             action='store_true',
             dest='no_normal_data'
         )
         self.args: Namespace = self.parser.parse_args()
 
-        if not self.args.Obj_File.endswith(".obj"):
-            print(f"Expected .obj file, got: {self.args.Obj_File}")
+        if not self.args.obj_file.endswith(".obj"):
+            print(f"Expected .obj file, got: {self.args.obj_file}")
             exit()
-        elif self.args.Target_File and not self.args.Target_File.endswith(".obj"):
-            print(f"Expected .obj file, got: {self.args.Target_File}")
+        elif self.args.target_file and not self.args.target_file.endswith(".obj"):
+            print(f"Expected .obj file, got: {self.args.target_file}")
             exit()
