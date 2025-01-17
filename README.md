@@ -17,4 +17,5 @@ to
 0, 1, 0, 0.5777, 0.5777, 0.5777,
 0, 0, 1, 0.5777, 0.5777, 0.5777,
 ```
-This is for feeding obj files to a vertex buffer.
+This is for parsing obj files to be suitable to feed to a vertex buffer.
+For most cases, it'd be better to just use an index buffer though.
