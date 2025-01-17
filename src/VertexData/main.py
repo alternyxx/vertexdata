@@ -1,11 +1,12 @@
-import cli
-import VertexData
+from VertexData import *
 
 def main():
     args: cli.Args = cli.Args()
-    vd: VertexData.VertexData = VertexData.VertexData(args.args.Obj_File, args.args.Target_File)
-    vd.parse()
-    vd.output()
+    v: VertexParser.VertexParser = VertexParser.VertexParser(
+        args.args.Obj_File, args.args.Target_File, args.args.no_normal_data
+    )
+    v.parse()
+    v.output()
 
 if __name__ == "__main__":
     main()
