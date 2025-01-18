@@ -1,4 +1,5 @@
-from VertexData import *
+from os import chdir, path
+from vertexdata import *
 
 CUBE = '''-1.000000, -1.000000, 1.000000, 
 -1.000000, 1.000000, 1.000000, 
@@ -38,11 +39,15 @@ CUBE = '''-1.000000, -1.000000, 1.000000,
 1.000000, 1.000000, 1.000000, 
 '''
 
-def test_cube(tmp_path):
+def test_cube(tmp_path):    
+    chdir(path.dirname(__file__))
+    cube = ''
+    with open("Cube.triangulated.obj") as file:
+        cube = file.read()
     temp_path = tmp_path / 'temp'
     temp_path.mkdir()
     CubeOBJ = temp_path / 'Cube.obj'
-    vd: VertexParser.VertexParser = VertexParser.VertexParser("Cube.triangulated.obj", CubeOBJ)
+    vd: VertexParser.VertexParser = VertexParser.VertexParser(cube, CubeOBJ)
     vd.parse()
     vd.output()
     assert CubeOBJ.read_text() == CUBE
