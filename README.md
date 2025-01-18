@@ -1,6 +1,6 @@
 # .obj to vertex data
-[![pypi version](https://img.shields.io/pypi/v/vertexdata.svg)(https://pypi.org/project/vertexdata/)]
-[![python versions](https://img.shields.io/pypi/pyversions/vertexdata.svg)(https://pypi.org/project/vertexdata/)]
+[![pypi version](https://img.shields.io/pypi/v/vertexdata.svg)](https://pypi.org/project/vertexdata/)
+[![python versions](https://img.shields.io/pypi/pyversions/vertexdata.svg)](https://pypi.org/project/vertexdata/)
 ![A spinning blahaj](https://static.alternyxx.com/blahaj.gif)
 The above spinning blahaj was rendered in a browser with typescript, see at
 [alternyxx.com/blahaj](https://alternyxx.com/blahaj)! The model can be found
