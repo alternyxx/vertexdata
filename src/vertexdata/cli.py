@@ -5,7 +5,7 @@ class Args():
     def __init__(self) -> None:
         self.parser: ArgumentParser = ArgumentParser(
                                         prog='vertexdata',
-                                        description='for feeding data of .obj files to a vertex buffer'
+                                        description='For parsing obj files to be suitable to feed to a vertex buffer'
         )
         self.parser.add_argument(
             'obj_file', help='the file name of the .obj file'

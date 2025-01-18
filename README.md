@@ -1,6 +1,7 @@
 # .obj to vertex data
 [![pypi version](https://img.shields.io/pypi/v/vertexdata.svg)](https://pypi.org/project/vertexdata/)
 [![python versions](https://img.shields.io/pypi/pyversions/vertexdata.svg)](https://pypi.org/project/vertexdata/)
+[![python package passing](https://github.com/alternyxx/vertexdata/actions/workflows/python-package.yml/badge.svg)](https://github.com/alternyxx/vertexdata/actions)
 <br>
 <br>
 ![A spinning blahaj](https://static.alternyxx.com/blahaj.gif)
