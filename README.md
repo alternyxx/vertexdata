@@ -1,8 +1,10 @@
 # .obj to vertex data
+[![pypi version](https://img.shields.io/pypi/v/vertexdata.svg)(https://pypi.org/project/vertexdata/)]
+[![python versions](https://img.shields.io/pypi/pyversions/vertexdata.svg)(https://pypi.org/project/vertexdata/)]
 ![A spinning blahaj](https://static.alternyxx.com/blahaj.gif)
 The above spinning blahaj was rendered in a browser with typescript, see at
 [alternyxx.com/blahaj](https://alternyxx.com/blahaj)! The model can be found
-at [here](https://sketchfab.com/3d-models/blahaj-ce981de49111488c81ea646067abe1ec).
+[here](https://sketchfab.com/3d-models/blahaj-ce981de49111488c81ea646067abe1ec).
 ## Intended Usage
 The program aims to make .obj files with **triangle** data, for example,
 ```
@@ -74,9 +76,9 @@ def main():
 ```
 source can be a file which then you can do 
 ```python
-    vertexparser = vtd.VertexParser(
-        source, target_file, file=true
-    )
+vertexparser = vtd.VertexParser(
+    source, target_file, file=true
+)
 ```
 If you don't need to output target as a file then you can pass an empty string. And,
 finally, there's the flags, no_normal_data and no_texture_data.
