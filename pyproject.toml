@@ -1,6 +1,6 @@
 [project]
 name = "vertexdata"
-version = "0.0.3"
+version = "1.0.0"
 description = "For parsing obj files to be suitable to feed to a vertex buffer."
 authors = [
     {name = "alternyxx", email = "alternyxx@gmail.com"}

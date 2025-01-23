@@ -7,7 +7,7 @@ def main():
         args.args.no_normal_data, args.args.no_texture_data, True
     )
     v.parse()
-    v.output()
+    v.output_file()
 
 if __name__ == "__main__":
     main()

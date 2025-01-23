@@ -40,14 +40,16 @@ CUBE = '''-1.000000, -1.000000, 1.000000,
 '''
 
 def test_cube(tmp_path):    
-    chdir(path.dirname(__file__))
+    chdir(path.dirname(__file__)) # changes to the tests folder so Cube.triangulated.obj can be read
     cube = ''
     with open("Cube.triangulated.obj") as file:
         cube = file.read()
-    temp_path = tmp_path / 'temp'
+
+    temp_path = tmp_path / 'temp' # making a temporary folder to output the cubeobj
     temp_path.mkdir()
     CubeOBJ = temp_path / 'Cube.obj'
+    
     vd: VertexParser.VertexParser = VertexParser.VertexParser(cube, CubeOBJ)
     vd.parse()
-    vd.output()
+    vd.output_file()
     assert CubeOBJ.read_text() == CUBE

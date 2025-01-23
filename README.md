@@ -4,7 +4,7 @@
 [![python package passing](https://github.com/alternyxx/vertexdata/actions/workflows/python-package.yml/badge.svg)](https://github.com/alternyxx/vertexdata/actions)
 <br>
 <br>
-![A spinning blahaj](https://static.alternyxx.com/blahaj.gif)
+![A spinning blahaj](https://static.alternyxx.com/gif/blahaj.gif)
 The above spinning blahaj was rendered in a browser with typescript, see at
 [alternyxx.com/blahaj](https://alternyxx.com/blahaj)! The model can be found
 [here](https://sketchfab.com/3d-models/blahaj-ce981de49111488c81ea646067abe1ec).
@@ -75,12 +75,12 @@ def main():
         source, target_file, no_normal_data=true, no_texture_data=true
     )
     vertex_parser.parse()
-    your_vertices_data = vertexparser.target.data
+    your_vertices_data = vertexparser.output()
 ```
 source can be a file which then you can do 
 ```python
 vertexparser = vtd.VertexParser(
-    source, target_file, file=true
+    source, target_file, read_file=true
 )
 ```
 If you don't need to output target as a file then you can pass an empty string. And,
