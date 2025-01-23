@@ -4,7 +4,7 @@
 [![python package passing](https://github.com/alternyxx/vertexdata/actions/workflows/python-package.yml/badge.svg)](https://github.com/alternyxx/vertexdata/actions)
 <br>
 <br>
-![A spinning blahaj](https://static.alternyxx.com/gif/blahaj.gif)
+![A spinning blahaj](https://ezgif.com/optimize?url=https://static.alternyxx.com/gif/vertexdata.gif)
 The above spinning blahaj was rendered in a browser with typescript, see at
 [alternyxx.com/blahaj](https://alternyxx.com/blahaj)! The model can be found
 [here](https://sketchfab.com/3d-models/blahaj-ce981de49111488c81ea646067abe1ec).
