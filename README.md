@@ -46,8 +46,8 @@ pip install vertexdata
 In case pip is blocked (happens to me), you can simply clone the repository and build
 from scratch. This should be especially trivial as the project has 0 dependancies.
 ```
-git clone https://github.com/alternyxx/VertexData
-cd VertexData
+git clone https://github.com/alternyxx/vertexdata
+cd vertexdata
 pip install .
 ```
 ## Command Line Usage
