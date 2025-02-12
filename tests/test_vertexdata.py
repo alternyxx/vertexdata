@@ -1,5 +1,5 @@
 from os import chdir, path
-from vertexdata import *
+from vertexdata import VertexParser, NOPOSITIONDATA
 
 CUBE = """-1.000000, 1.000000, -1.000000, -0.0000, 1.0000, -0.0000,
 1.000000, 1.000000, 1.000000, -0.0000, 1.0000, -0.0000,
