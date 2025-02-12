@@ -1,5 +1,8 @@
 from sys import exit
 from re import split
+from enum import IntFlag, auto
+
+__all__ = ["VertexParser", "NOPOSITIONDATA", "NOTEXTUREDATA", "NONORMALDATA"]
 
 class Obj():
     """Handles Obj"""
@@ -196,7 +199,7 @@ class Face():
     Denoted by a line starting with f
     """
     def __init__(self, face: str, vertices: list[Vertex], normals: list[Normal], 
-                 textures: list[Texture], no_normal_data: bool, no_texture_data: bool
+        textures: list[Texture], no_position_data: bool, no_normal_data: bool, no_texture_data: bool
     ) -> None:
         """
         Initialises a Face Object
@@ -212,6 +215,7 @@ class Face():
         self.vertices: list[Vertex] = vertices
         self.normals: list[Normal] = normals
         self.textures: list[Texture] = textures
+        self.no_position_data: bool = no_position_data
         self.no_normal_data: bool = no_normal_data
         self.no_texture_data: bool = no_texture_data
 
@@ -255,10 +259,12 @@ class Face():
                 case 1:
                     vertex = info[0]
             try:
-                if vertex:
-                    vertex = ", ".join(self.vertices[int(vertex) - 1].vertex) + ', '
+                if vertex and not self.no_position_data:
+                    vertex = ", ".join(self.vertices[int(vertex) - 1].vertex) + ", "
+                else:
+                    vertex = ''
                 if texture and not self.no_texture_data:
-                    texture = ", ".join(self.textures[int(texture) - 1].texture) + ', '  
+                    texture = ", ".join(self.textures[int(texture) - 1].texture) + ", " 
                 else:
                     texture = ''            
                 if normal and not self.no_normal_data:
@@ -272,11 +278,21 @@ class Face():
                 triangle += vertex + texture + normal + '\n'
         return triangle
 
+class VertexParseFlags(IntFlag):
+    """Flags for VertexParser"""
+    NOPOSITIONDATA = auto()
+    NOTEXTUREDATA = auto()
+    NONORMALDATA = auto()
+
+NOPOSITIONDATA = VertexParseFlags.NOPOSITIONDATA
+NOTEXTUREDATA = VertexParseFlags.NOTEXTUREDATA
+NONORMALDATA = VertexParseFlags.NONORMALDATA
 
 class VertexParser():
     """Handles parsing of an obj"""
-    def __init__(self, source: str, target: str, no_normal_data: bool=False, 
-                 no_texture_data: bool=False, read_file: bool=False) -> None:
+    def __init__(
+        self, source: str, target: str,read_file: bool=False, *flags: VertexParseFlags
+    ) -> None:
         """
         Initialises a VertexParser Object
 
@@ -296,8 +312,9 @@ class VertexParser():
         self.vertices: list[Vertex] = []
         self.normals: list[Normal] = []
         self.textures: list[Texture] = []
-        self.no_normal_data: bool = no_normal_data
-        self.no_texture_data: bool = no_texture_data
+        self.no_position_data: bool = NOPOSITIONDATA in flags
+        self.no_texture_data: bool = NOTEXTUREDATA in flags
+        self.no_normal_data: bool = NONORMALDATA in flags
 
     def parse(self) -> None:
         """
@@ -317,7 +334,7 @@ class VertexParser():
                         print("what kind of vertex info do you have??")
                         exit()
             elif line[0] == 'f':
-                face = Face(line, self.vertices, self.normals, self.textures, 
+                face = Face(line, self.vertices, self.normals, self.textures, self.no_position_data,
                             self.no_normal_data, self.no_texture_data).construct()
                 self.target.data += face
 

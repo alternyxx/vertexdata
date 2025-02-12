@@ -23,13 +23,19 @@ class Args():
             nargs='?'
         )
         self.parser.add_argument(
-            '-nvn', '--no-vn',
+            '-p', '--no-v',
+            help='no position data in output file',
+            action='store_true',
+            dest='no_position_data'
+        )
+        self.parser.add_argument(
+            '-n', '--no-vn',
             help='no normal data in output file',
             action='store_true',
             dest='no_normal_data'
         )
         self.parser.add_argument(
-            '-nvt', '--no-vt',
+            '-t', '--no-vt',
             help='no vertex texture in output file',
             action='store_true',
             dest='no_texture_data'

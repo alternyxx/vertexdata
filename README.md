@@ -33,8 +33,8 @@ If your .obj file has faces with quads, which is usually the case, eg.
 f 1/1/1 2/1/1 3/1/1 4/1/1
 ```
 Then, you could change your vertex buffer accordingly to have 4 vertex coordinates in the 
-case the graphics api you're using **supports quads**. Else, there is 
-[github.com/StefanJohnsen/TriangulateOBJ-App](https://github.com/StefanJohnsen/TriangulateOBJ-App) 
+case the graphics api you're using **supports quads**. Else, you can triangulate when exporting from
+blender or [github.com/StefanJohnsen/TriangulateOBJ-App](https://github.com/StefanJohnsen/TriangulateOBJ-App) 
 to triangulate quads in a .obj file which is what I did for the blahaj!
 ## Installation 
 ### pip 
@@ -43,7 +43,7 @@ Make sure Python and pip is installed. Python version needs to be >= 3.10. Then 
 pip install vertexdata
 ```
 ### Build
-In case pip is blocked (happens to me), you can simply clone the repository and build
+You can also simply clone the repository and build
 from scratch. This should be especially trivial as the project has 0 dependancies.
 ```
 git clone https://github.com/alternyxx/vertexdata
@@ -59,7 +59,7 @@ to get vertex data in the target_file. By default, the program will generate all
 vertex data, positions, textures and normals *if given*. To override this, you can pass
 in
 ```
-vertexdata obj_file {target_file} -nvn -nvt
+vertexdata obj_file {target_file} -n -t
 ```
 to only generate the positions of the vertices.
 For more information, run 
@@ -73,16 +73,18 @@ import vertexdata as vtd
 
 def main():
     vertex_parser = vtd.VertexParser(
-        source, target_file, no_normal_data=true, no_texture_data=true
+        source, target_file, read_file
     )
     vertex_parser.parse()
     your_vertices_data = vertexparser.output()
 ```
-source can be a file which then you can do 
+source can either be a file or a string that youve already read, which then, you
+would specify read_file as false.  
+There's also flags to not handle certain data
 ```python
+from vertexdata import VertexParser, NONORMALDATA, NOTEXTUREDATA
+
 vertexparser = vtd.VertexParser(
-    source, target_file, read_file=true
+    source, target_file, False, NONORMALDATA, NOTEXTUREDATA
 )
 ```
-If you don't need to output target as a file then you can pass an empty string. And,
-finally, there's the flags, no_normal_data and no_texture_data.
