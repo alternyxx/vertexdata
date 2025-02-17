@@ -1,7 +1,7 @@
 from vertexdata.cli import Args
 from vertexdata import *
 
-def main():
+def main() -> None:
     args: Args = Args()
     flags = [flag for opt, flag in (
         (args.args.no_position_data, NOPOSITIONDATA),

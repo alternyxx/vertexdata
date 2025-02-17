@@ -84,7 +84,7 @@ There's also flags to not handle certain data
 ```python
 from vertexdata import VertexParser, NONORMALDATA, NOTEXTUREDATA
 
-vertexparser = vtd.VertexParser(
+vertexparser = VertexParser(
     source, target_file, False, NONORMALDATA, NOTEXTUREDATA
 )
 ```

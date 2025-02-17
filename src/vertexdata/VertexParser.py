@@ -39,11 +39,12 @@ class Obj():
                 if source is a list[str], will trust that it is split by lines
                 if neither, will raise ValueError
         """
+        self._obj_data: list[str] = []
         # surprisingly cant do match type(source)?
         if type(source) == str:
-            self._obj_data: list[str] = source.splitlines(True)
+            self._obj_data = source.splitlines(True)
         elif type(source) == list:
-            self._obj_data: list[str] = source
+            self._obj_data = source
         else:
             raise ValueError("VertexParser accepts str or list[str] as source")
 
